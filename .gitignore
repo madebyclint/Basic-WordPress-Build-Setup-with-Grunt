@@ -1,0 +1,4 @@
+.sass-cache
+htdocs/dist
+node_modules/
+htdocs/src/inc/img/opt/

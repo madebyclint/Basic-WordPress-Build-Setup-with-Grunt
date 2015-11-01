@@ -2,7 +2,9 @@
 module.exports = function(grunt) {
 
     // Globals
-    var basehost = 'htdocs';
+    var basehost = 'htdocs',
+        themename = 'mytheme',
+        themepath = 'wp-content/themes/' + themename;
 
     // Project configuration.
     grunt.initConfig({
@@ -17,11 +19,11 @@ module.exports = function(grunt) {
         clean: {
             init: [basehost + '/dist'],
             post: [
-                basehost + '/dist/inc/js/modules', 
-                basehost + '/dist/inc/js/main.js',
-                basehost + '/dist/inc/css/main.css',
-                basehost + '/dist/inc/scss',
-                basehost + '/dist/inc/img/raw'
+                basehost + '/dist/' + themepath + '/inc/js/modules', 
+                basehost + '/dist/' + themepath + '/inc/js/main.js',
+                basehost + '/dist/' + themepath + '/inc/css/main.css',
+                basehost + '/dist/' + themepath + '/inc/scss',
+                basehost + '/dist/' + themepath + '/inc/img/raw'
             ]
         },
         concat: {
@@ -32,10 +34,10 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [
-                    basehost + '/dist/inc/js/main.js',
-                    basehost + '/dist/inc/js/modules/module.js'
+                    basehost + '/dist/' + themepath + '/inc/js/main.js',
+                    basehost + '/dist/' + themepath + '/inc/js/modules/module.js'
                 ],
-                dest: basehost + '/dist/inc/js/main.js'
+                dest: basehost + '/dist/' + themepath + '/inc/js/main.js'
             }
         },
         copy: {
@@ -48,9 +50,9 @@ module.exports = function(grunt) {
             },
             rawimg: {
                 expand: true,
-                cwd: basehost + '/src/inc/img/raw/',
+                cwd: basehost + '/src/' + themepath + '/inc/img/raw/',
                 src: ['**'],
-                dest: basehost + '/src/inc/img/opt/'
+                dest: basehost + '/src/' + themepath + '/inc/img/opt/'
             }
         },
         csslint: {
@@ -58,7 +60,7 @@ module.exports = function(grunt) {
                 options: {
                     import: 2
                 },
-                src: [basehost + '/dist/inc/css/**/*.css']
+                src: [basehost + '/dist/' + themepath + '/inc/css/**/*.css']
             },
             lax: {
                 // options: {
@@ -71,16 +73,16 @@ module.exports = function(grunt) {
             target: {
                 files: [{
                     expand: true,
-                    cwd: basehost + '/dist/inc/css',
+                    cwd: basehost + '/dist/' + themepath + '/inc/css',
                     src: ['*.css', '!*.min.css'],
-                    dest: basehost + '/dist/inc/css',
+                    dest: basehost + '/dist/' + themepath + '/inc/css',
                     ext: '.min.css'
                 }]
             }
         },
         imageoptim: {
             dist: {
-                src: [basehost + '/src/inc/img/opt/']
+                src: [basehost + '/src/' + themepath + '/inc/img/opt/']
             }
         },
         jshint: {
@@ -97,15 +99,15 @@ module.exports = function(grunt) {
                 boss: true,
                 eqnull: true,
                 browser: true,
-                ignores: [basehost + '/dist/inc/js/vendor/**/*.js'],
+                ignores: [basehost + '/dist/' + themepath + '/inc/js/vendor/**/*.js'],
                 globals: {
                     jQuery: true,
                     console: true,
                     require: true
                 }
             },
-            beforeconcat: [basehost + '/dist/inc/js/**/*.js'],
-            afterconcat: [basehost + '/dist/inc/js/main.js'],
+            beforeconcat: [basehost + '/dist/' + themepath + '/inc/js/**/*.js'],
+            afterconcat: [basehost + '/dist/' + themepath + '/inc/js/main.js'],
             gruntfile: {
                 src: 'Gruntfile.js'
             },
@@ -118,7 +120,7 @@ module.exports = function(grunt) {
                 ]
             },
             dist: {
-                src: basehost + '/dist/inc/css/**/*.css'
+                src: basehost + '/dist/' + themepath + '/inc/css/**/*.css'
             }
         },
         sass: {                              
@@ -130,9 +132,9 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: basehost + '/dist/inc/scss',
+                    cwd: basehost + '/dist/' + themepath + '/inc/scss',
                     src: ['**/*.scss'],
-                    dest: basehost + '/dist/inc/css',
+                    dest: basehost + '/dist/' + themepath + '/inc/css',
                     ext: '.css'
                 }]
             }
@@ -145,7 +147,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: '<%= concat.dist.dest %>',
-                dest: basehost + '/dist/inc/js/main.min.js'
+                dest: basehost + '/dist/' + themepath + '/inc/js/main.min.js'
             }
         },
         watch: {

@@ -1,4 +1,19 @@
-.sass-cache
-htdocs/dist
-node_modules/
-htdocs/src/inc/img/opt/
+# IGNORE THESE...
+
+# Build/setup
+/.sass-cache
+/htdocs/dist/
+/node_modules/
+/htdocs/src/inc/img/opt/
+
+# WordPress
+/htdocs/src/*
+
+# BUT DON'T IGNORE THESE...
+
+# Any file/directory names wp-content
+!/htdocs/src/**/wp-content
+# Any subdirectories or files inside wp-content
+!/htdocs/src/**/wp-content/*
+
+

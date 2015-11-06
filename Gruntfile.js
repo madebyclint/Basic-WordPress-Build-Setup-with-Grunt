@@ -119,6 +119,14 @@ module.exports = function(grunt) {
                 src: 'Gruntfile.js'
             },
         },
+        notify: {
+            watch: {
+                options: {
+                    title: 'Task Complete',  // optional
+                    message: 'Watch build complete.', //required
+                }
+            },
+        },
         postcss: {
             options: {
                 map: true,
@@ -164,7 +172,7 @@ module.exports = function(grunt) {
                 tasks: ['jshint:gruntfile'],
             },
             src: {
-                files: [basehost + '/src/' + themepath + '/**/*.scss'],
+                files: [basehost + '/src/' + themepath + '/**/*.twig', basehost + '/src/' + themepath + '/**/*.php', basehost + '/src/' + themepath + '/**/*.scss'],
                 tasks: ['default'],
             }
         }
@@ -183,6 +191,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-imageoptim');
     grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-postcss');
     // LibSass
     grunt.loadNpmTasks('grunt-sass');
@@ -192,7 +201,7 @@ module.exports = function(grunt) {
     // Default task.
     grunt.registerTask('default', [
         'clean:init', 'newer:copy:rawimg', 'newer:imageoptim', 'newer:copy:dist', 'concat', 'jshint',
-        'uglify', 'sass:dist', 'csslint', 'postcss', 'cssmin', 'clean:post'
+        'uglify', 'sass:dist', 'csslint', 'postcss', 'cssmin', 'clean:post', 'notify'
     ]);
 
 };

@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
     // Globals
     var basehost = 'htdocs',
-        themename = 'mytheme',
+        themename = 'catchy2015',
         themepath = 'wp-content/themes/' + themename;
 
     // Project configuration.
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
             ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
         // Task configuration.
         clean: {
-            init: [basehost + '/dist'],
+            init: [basehost + '/dist/' + themepath],
             post: [
                 basehost + '/dist/' + themepath + '/inc/js/modules', 
                 basehost + '/dist/' + themepath + '/inc/js/main.js',
@@ -174,7 +174,7 @@ module.exports = function(grunt) {
 
     // Default task.
     grunt.registerTask('default', [
-        'clean:init', 'newer:copy:rawimg', 'newer:imageoptim', 'copy:dist', 'concat', 'jshint',
+        'clean:init', 'newer:copy:rawimg', 'newer:imageoptim', 'newer:copy:dist', 'concat', 'jshint',
         'uglify', 'sass:dist', 'csslint', 'postcss', 'cssmin', 'clean:post'
     ]);
 

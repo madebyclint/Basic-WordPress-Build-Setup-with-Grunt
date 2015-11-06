@@ -41,12 +41,19 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            dist: {
+            wp: {
                 // makes all src relative to cwd
                 expand: true, 
                 cwd: basehost + '/src/', 
-                src: ['**'], 
+                src: ['**', '!**/' + themepath + '/**'], 
                 dest: basehost + '/dist/'
+            },
+            dist: {
+                // makes all src relative to cwd
+                expand: true, 
+                cwd: basehost + '/src/' + themepath + '/',
+                src: ['**'], 
+                dest: basehost + '/dist/' + themepath + '/'
             },
             rawimg: {
                 expand: true,
@@ -128,6 +135,7 @@ module.exports = function(grunt) {
                 options: {      
                     lineNumbers: true,                 
                     trace: true,
+                    sourceMap: true,
                     update: false
                 },
                 files: [{
@@ -152,8 +160,12 @@ module.exports = function(grunt) {
         },
         watch: {
             gruntfile: {
-                files: '<%= jshint.gruntfile.src %>',
-                tasks: ['jshint:gruntfile']
+                files: 'Gruntfile.js',
+                tasks: ['jshint:gruntfile'],
+            },
+            src: {
+                files: [basehost + '/src/' + themepath + '/**/*.scss'],
+                tasks: ['default'],
             }
         }
     });
@@ -165,12 +177,17 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-sass');
+    // Ruby Sass
+    // grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-imageoptim');
     grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-postcss');
+    // LibSass
+    grunt.loadNpmTasks('grunt-sass');
+
+    require('time-grunt')(grunt);
 
     // Default task.
     grunt.registerTask('default', [
